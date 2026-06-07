@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 const PURPLE = "#5B0E91";
 const GOLD = "#F5A800";
 const DARK = "#1a0a2e";
 const LIGHT_BG = "#f9f7f2";
 
-const Section = ({ title, children }) => (
+const Section = ({ title, children }: { title: string; children: ReactNode }) => (
   <div style={{ marginBottom: 24 }}>
     <div
       style={{
@@ -80,7 +80,7 @@ const Select = ({
   label: any;
   value: any;
   onChange: any;
-  options: any;
+  options: Array<{ value: string; label: string }>;
   sub?: any;
 }) => (
   <div
@@ -121,7 +121,7 @@ const Select = ({
   </div>
 );
 
-const NumberInput = ({ label, value, onChange, min = 0 }) => (
+const NumberInput = ({ label, value, onChange, min = 0 }: { label: ReactNode; value: number; onChange: (n: number) => void; min?: number }) => (
   <div
     style={{
       display: "flex",
@@ -150,7 +150,7 @@ const NumberInput = ({ label, value, onChange, min = 0 }) => (
   </div>
 );
 
-const CheckRow = ({ label, checked, onChange, sub }) => (
+const CheckRow = ({ label, checked, onChange, sub }: { label: ReactNode; checked: boolean; onChange: (checked: boolean) => void; sub?: ReactNode }) => (
   <div
     style={{
       display: "flex",
@@ -176,7 +176,7 @@ const CheckRow = ({ label, checked, onChange, sub }) => (
   </div>
 );
 
-const fmt = (n) => (n === 0 ? "₦0" : "₦" + Math.round(n).toLocaleString());
+const fmt = (n: number) => (n === 0 ? "₦0" : "₦" + Math.round(n).toLocaleString());
 const TAB = {
   PROJECT: "project",
   WAREHOUSE: "warehouse",
@@ -219,8 +219,8 @@ export default function Calculator() {
   const [megaStaff, setMegaStaff] = useState(false);
   const [concurrent, setConcurrent] = useState("none");
 
-  const decorFee = inclDecor ? DECOR[scale] : 0;
-  const logisticsFee = inclLogistics ? LOGISTICS[scale] : 0;
+  const decorFee = inclDecor ? DECOR[scale as keyof typeof DECOR] : 0;
+  const logisticsFee = inclLogistics ? LOGISTICS[scale as keyof typeof LOGISTICS] : 0;
   const digitalFee =
     digitalMode === "bundle"
       ? 200000
@@ -257,7 +257,7 @@ export default function Calculator() {
   const [wSku, setWSku] = useState("w500");
   const [wMonths, setWMonths] = useState(3);
   const [wExtra, setWExtra] = useState(false);
-  const wPkg = WAREHOUSE_SKU.find((x) => x.value === wSku);
+  const wPkg = WAREHOUSE_SKU.find((x) => x.value === wSku)!;
   const wBase = wPkg.fee;
   const wExtraFee = wExtra ? 150000 : 0;
   const wMonthly = wBase + wExtraFee;
@@ -268,7 +268,7 @@ export default function Calculator() {
   const [months, setMonths] = useState(3);
   const [addTraining, setAddTraining] = useState(false);
   const [addOnsite, setAddOnsite] = useState(false);
-  const pkgData = {
+  const pkgData: Record<string, { label: string; monthly: number; assets: number; bundle?: boolean }> = {
     starter: {
       label: "Starter – Warehouse & 500 Assets",
       monthly: 150000,
@@ -646,7 +646,7 @@ export default function Calculator() {
             <Select
               label="Package"
               value={pkg}
-              onChange={(v) => {
+              onChange={(v: string) => {
                 setPkg(v);
                 if (v === "bundle") {
                   setAddTraining(false);
