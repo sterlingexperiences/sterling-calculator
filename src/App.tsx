@@ -26,7 +26,14 @@ const Section = ({ title, children }) => (
   </div>
 );
 
-const Row = ({ label, value, highlight, note, sub }) => (
+interface RowProps {
+  label: any;
+  value: any;
+  highlight?: boolean;
+  note?: any;
+  sub?: any;
+}
+const Row = ({ label, value, highlight, note, sub }: RowProps) => (
   <div
     style={{
       display: "flex",
@@ -63,7 +70,19 @@ const Row = ({ label, value, highlight, note, sub }) => (
   </div>
 );
 
-const Select = ({ label, value, onChange, options, sub }) => (
+const Select = ({
+  label,
+  value,
+  onChange,
+  options,
+  sub,
+}: {
+  label: any;
+  value: any;
+  onChange: any;
+  options: any;
+  sub?: any;
+}) => (
   <div
     style={{
       display: "flex",
@@ -219,7 +238,7 @@ export default function Calculator() {
   const megaFee = megaStaff ? 150000 : 0;
   const concurrencyFee = concurrent === "two" ? 120000 : 0;
 
-  let subtotal =
+  const subtotal =
     decorFee +
     logisticsFee +
     digitalFee +
