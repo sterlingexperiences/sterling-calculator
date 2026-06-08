@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import Logo from "../public/sterling-experiences-logo.png";
 
 const PURPLE = "#5B0E91";
 const GOLD = "#F5A800";
@@ -354,8 +355,12 @@ export default function Calculator() {
           gap: 20,
         }}
       >
-        <img src="/public/sterling-experiences-logo.png" alt="" />
-        <div>
+        <img src={Logo} alt="" />
+        <div
+          style={{
+            direction: "rtl",
+          }}
+        >
           <div
             style={{
               fontSize: 10,
@@ -369,7 +374,14 @@ export default function Calculator() {
           <div style={{ fontSize: 18, fontWeight: 700 }}>
             Project Calculator
           </div>
-          <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>
+          <div
+            style={{
+              fontSize: 11,
+              color: "#aaa",
+              marginTop: 2,
+              direction: "ltr",
+            }}
+          >
             Professional Services & Rate Card 2026 · All figures in Naira (₦)
           </div>
         </div>
