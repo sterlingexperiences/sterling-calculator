@@ -5,7 +5,13 @@ const GOLD = "#F5A800";
 const DARK = "#1a0a2e";
 const LIGHT_BG = "#f9f7f2";
 
-const Section = ({ title, children }: { title: string; children: ReactNode }) => (
+const Section = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) => (
   <div style={{ marginBottom: 24 }}>
     <div
       style={{
@@ -121,7 +127,17 @@ const Select = ({
   </div>
 );
 
-const NumberInput = ({ label, value, onChange, min = 0 }: { label: ReactNode; value: number; onChange: (n: number) => void; min?: number }) => (
+const NumberInput = ({
+  label,
+  value,
+  onChange,
+  min = 0,
+}: {
+  label: ReactNode;
+  value: number;
+  onChange: (n: number) => void;
+  min?: number;
+}) => (
   <div
     style={{
       display: "flex",
@@ -150,7 +166,17 @@ const NumberInput = ({ label, value, onChange, min = 0 }: { label: ReactNode; va
   </div>
 );
 
-const CheckRow = ({ label, checked, onChange, sub }: { label: ReactNode; checked: boolean; onChange: (checked: boolean) => void; sub?: ReactNode }) => (
+const CheckRow = ({
+  label,
+  checked,
+  onChange,
+  sub,
+}: {
+  label: ReactNode;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  sub?: ReactNode;
+}) => (
   <div
     style={{
       display: "flex",
@@ -176,7 +202,8 @@ const CheckRow = ({ label, checked, onChange, sub }: { label: ReactNode; checked
   </div>
 );
 
-const fmt = (n: number) => (n === 0 ? "₦0" : "₦" + Math.round(n).toLocaleString());
+const fmt = (n: number) =>
+  n === 0 ? "₦0" : "₦" + Math.round(n).toLocaleString();
 const TAB = {
   PROJECT: "project",
   WAREHOUSE: "warehouse",
@@ -220,7 +247,9 @@ export default function Calculator() {
   const [concurrent, setConcurrent] = useState("none");
 
   const decorFee = inclDecor ? DECOR[scale as keyof typeof DECOR] : 0;
-  const logisticsFee = inclLogistics ? LOGISTICS[scale as keyof typeof LOGISTICS] : 0;
+  const logisticsFee = inclLogistics
+    ? LOGISTICS[scale as keyof typeof LOGISTICS]
+    : 0;
   const digitalFee =
     digitalMode === "bundle"
       ? 200000
@@ -268,7 +297,10 @@ export default function Calculator() {
   const [months, setMonths] = useState(3);
   const [addTraining, setAddTraining] = useState(false);
   const [addOnsite, setAddOnsite] = useState(false);
-  const pkgData: Record<string, { label: string; monthly: number; assets: number; bundle?: boolean }> = {
+  const pkgData: Record<
+    string,
+    { label: string; monthly: number; assets: number; bundle?: boolean }
+  > = {
     starter: {
       label: "Starter – Warehouse & 500 Assets",
       monthly: 150000,
@@ -316,21 +348,30 @@ export default function Calculator() {
           padding: "16px 18px",
           marginBottom: 20,
           borderBottom: `3px solid ${GOLD}`,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 20,
         }}
       >
-        <div
-          style={{
-            fontSize: 10,
-            letterSpacing: 3,
-            color: GOLD,
-            marginBottom: 3,
-          }}
-        >
-          STERLING EXPERIENCES
-        </div>
-        <div style={{ fontSize: 18, fontWeight: 700 }}>Project Calculator</div>
-        <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>
-          Professional Services & Rate Card 2026 · All figures in Naira (₦)
+        <img src="/public/sterling-experiences-logo.png" alt="" />
+        <div>
+          <div
+            style={{
+              fontSize: 10,
+              letterSpacing: 3,
+              color: GOLD,
+              marginBottom: 3,
+            }}
+          >
+            STERLING EXPERIENCES
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 700 }}>
+            Project Calculator
+          </div>
+          <div style={{ fontSize: 11, color: "#aaa", marginTop: 2 }}>
+            Professional Services & Rate Card 2026 · All figures in Naira (₦)
+          </div>
         </div>
       </div>
 
